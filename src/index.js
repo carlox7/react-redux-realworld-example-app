@@ -1,14 +1,18 @@
-import ReactDOM from 'react-dom';
+import App from './App';
+import { Provider } from 'react-redux';
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { store, history } from './store';
 
-class App extends React.Component {
-  render() {
-    return (
-      <h1>Hello, World!</h1>
-    );
-  }
-}
+import { Router, Route, Switch } from 'react-router-dom';
+// import { ConnectedRouter } from 'react-router-redux';
 
 ReactDOM.render((
-  <App />
+    <Provider store={store}>
+      <Router history={history}>
+        <Switch>
+          <Route path="/" component={App} />>
+        </Switch>
+      </Router>
+    </Provider>   
 ), document.getElementById('root'));
