@@ -14,6 +14,5 @@ const reducer = combineReducers({
 });
 
 const middleware = applyMiddleware(promiseMiddleware)
-
 export const store = createStore(reducer, middleware);
 

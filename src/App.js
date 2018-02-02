@@ -4,12 +4,41 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import{ Route, Switch } from 'react-router-dom';
 import Login from './components/Login';
+import { store } from './store';
+import { push } from 'react-router-redux';
+import agent from '../agent';
 
 const mapStateToProps = state => ({
-    appName: state.common.appName
+    appName: state.common.appName,
+    currentUser: state.common.currentUser,
+    redirectTo: state.common.redirectTo
 });
 
-class App extends Component {  
+const mapDispatchToProps = dispatch => ({
+    onLoad: (payload, token) =>
+        dispatch({type: 'APP_LOAD', payload, token}),
+    onRedirect: () =>
+        dispatch({ type: 'REDIRECT' })
+});
+
+class App extends Component { 
+    componentWillMount(){
+        const token = window.localStorage.getItem('jwt');
+        if(token){
+            agent.setToken(token);
+        }
+
+        this.props.onLoad(token ? agent.Auth.current() : null, token);
+    }
+    
+    componentWillReceieveProps(nextProps) {
+        if(nextProps.redirectTo){
+            // this.context.router.replace(nextProps.redirectTo);
+            store.dispatch(push(nextProps.redirectTo));
+            this.props.onRedirect();
+        }
+    } 
+
     render() {
       return (
         <div>
@@ -28,4 +57,4 @@ class App extends Component {
 //       router: React.PropTypes.object.isRequired
 //   };
 
-export default connect(mapStateToProps, () => ({}) )(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
