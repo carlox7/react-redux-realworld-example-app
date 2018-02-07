@@ -1,24 +1,23 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class ListErrors extends Component {
     render(){
-        const { errors } = this.props;
-        console.log('errors', errors);
+        const errors = this.props.errors;
         if(errors){
             return(
                 <ul className="error-messages">
                 {
                     Object.keys(errors).map(key => {
                         return(
-                            <li key={key}>
-                                {key} {errors[key]}
+                            <li key={ key }>
+                                { key } { errors[key] }
                             </li>
                         );
                     })
                 }
                 </ul>
             );
-        }else {
+        } else {
             return null;
         }
     }

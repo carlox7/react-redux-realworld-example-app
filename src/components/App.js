@@ -1,12 +1,13 @@
-import Header from './components/Header';
-import Home from './components/Home';
+import Header from './Header';
+import Home from './Home';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import{ Route, Switch } from 'react-router-dom';
-import Login from './components/Login';
-import { store } from './store';
+import Login from './Login';
+import { store } from '../store';
 import { push } from 'react-router-redux';
 import agent from '../agent';
+import Register from './Register';
 
 const mapStateToProps = state => ({
     appName: state.common.appName,
@@ -16,7 +17,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoad: (payload, token) =>
-        dispatch({type: 'APP_LOAD', payload, token}),
+        dispatch( { type: 'APP_LOAD', payload, token }),
     onRedirect: () =>
         dispatch({ type: 'REDIRECT' })
 });
@@ -30,7 +31,7 @@ class App extends Component {
 
         this.props.onLoad(token ? agent.Auth.current() : null, token);
     }
-    
+
     componentWillReceieveProps(nextProps) {
         if(nextProps.redirectTo){
             // this.context.router.replace(nextProps.redirectTo);
@@ -42,10 +43,13 @@ class App extends Component {
     render() {
       return (
         <div>
-            <Header appName={this.props.appName} />
+            <Header 
+            currentUser={this.props.currentUser}
+            appName={this.props.appName} />
             <Switch>
-                <Route exact path='/' component={Home} />
+                <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
             </Switch>
         </div>
 

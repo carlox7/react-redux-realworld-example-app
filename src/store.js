@@ -1,5 +1,5 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux';
-import { promiseMiddleware } from './middleware';
+import { promiseMiddleware, localStorageMiddleware } from './middleware';
 import createHistory from 'history/createBrowserHistory';
 import auth from './reducers/auth';
 import common from './reducers/common';
@@ -13,6 +13,6 @@ const reducer = combineReducers({
     home
 });
 
-const middleware = applyMiddleware(promiseMiddleware)
+const middleware = applyMiddleware(promiseMiddleware, localStorageMiddleware);
 export const store = createStore(reducer, middleware);
 

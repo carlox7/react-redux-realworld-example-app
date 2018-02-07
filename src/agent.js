@@ -6,14 +6,20 @@ const superagent = superagentPromise(_superagent, global.Promise);
 const API_ROOT = 'https://conduit.productionready.io/api';
 
 const responseBody = res => res.body;
+let token = null;
+
+const tokenPlugin = req => {
+    if(token){
+        req.set('authorization', `Token ${token}`);
+    }
+}
 
 const request = {
     get: url =>
         superagent.get(`${API_ROOT}${url}`).then(responseBody),
-    post: (url, body) => {
+    post: (url, body) => 
         superagent.post(`${API_ROOT}${url}`, body)
         .then(responseBody)
-    }
 };
 
 const Articles = {
@@ -24,12 +30,15 @@ const Articles = {
 const Auth = {
     current: () =>
         request.get('/user'),
-    login: (email, password) =>
-        request.post('/users/login', {user: {email, password} })
+    login: (email, password) => 
+        request.post('/users/login', { user: { email, password } }),
+    register: (username, email, password) =>
+        request.post('/users', { user: { username, email, password}})
+
 }
 
 export default {
     Articles,
     Auth,
-    setToken: _token => { token = _token }
+    setToken: _token => { token = _token; }
 };

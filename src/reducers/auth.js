@@ -1,7 +1,7 @@
 export default (state = {}, action) => {
     switch(action.type){
         case 'LOGIN':
-            console.log('action', action)
+        case 'REGISTER':
             return{
                 ...state,
                 inProgress: false,
