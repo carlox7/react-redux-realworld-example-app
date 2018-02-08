@@ -8,6 +8,7 @@ import { store } from '../store';
 import { push } from 'react-router-redux';
 import agent from '../agent';
 import Register from './Register';
+import Settings from './Settings';
 
 const mapStateToProps = state => ({
     appName: state.common.appName,
@@ -50,6 +51,7 @@ class App extends Component {
                 <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
+                <Route path="/settings" component={Settings} />
             </Switch>
         </div>
 

@@ -19,6 +19,9 @@ const request = {
         superagent.get(`${API_ROOT}${url}`).then(responseBody),
     post: (url, body) => 
         superagent.post(`${API_ROOT}${url}`, body)
+        .then(responseBody),
+    put: (url, body) =>
+        superagent.put(`${API_ROOT}${url}`, body)
         .then(responseBody)
 };
 
