@@ -33,7 +33,7 @@ const Articles = {
 };
 
 const Comments = {
-    forArticles: slug => 
+    forArticle: slug => 
         request.get(`/articles/${slug}/comments`)
 }
 

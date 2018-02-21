@@ -1,4 +1,5 @@
 import Header from './Header';
+import Article from './Article'
 import Home from './Home';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -52,6 +53,7 @@ class App extends Component {
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
                 <Route path="/settings" component={Settings} />
+                <Route path="/article/:id" component={Article} />
             </Switch>
         </div>
 

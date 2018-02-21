@@ -17,6 +17,7 @@ const mapDispatchToProps = dispatch => ({
 
 class Home extends Component {
     componentWillMount(){
+        console.log('the home component mounted')
         this.props.onLoad(agent.Articles.all());
     }
     render() {
